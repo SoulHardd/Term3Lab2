@@ -4,10 +4,10 @@
 #include "Isort.h"
 
 template <typename T>
-class HeapSorter : public ISort<T>
+class HeapSort : public ISort<T>
 {
 public:
-    void Sort(Sequence<T> *seq) override
+    Sequence<T> *Sort(Sequence<T> *seq) override
     {
         int n = seq->GetLength();
 
@@ -21,6 +21,7 @@ public:
             swap(seq, 0, i);
             heapify(seq, i, 0);
         }
+        return seq;
     }
 
 private:

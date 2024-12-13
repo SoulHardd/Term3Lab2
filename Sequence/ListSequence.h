@@ -5,25 +5,31 @@
 #include "LinkedList.h"
 
 template <class T>
-class MutableListSequence : public Sequence<T>
+class ListSequence : public Sequence<T>
 {
 private:
     LinkedList<T> *elements;
 
 public:
-    MutableListSequence()
+    ListSequence()
     {
         this->elements = new LinkedList<T>();
     }
 
-    MutableListSequence(T *elements, int size)
+    ListSequence(int size)
+    {
+        this->elements = new LinkedList<T>(size);
+    }
+
+    ListSequence(T *elements, int size)
     {
         this->elements = new LinkedList<T>(elements, size);
     }
 
-    MutableListSequence(const MutableListSequence<T> &list)
+    ListSequence(const Sequence<T> &list)
     {
-        this->elements = new LinkedList<T>(*list.elements);
+        const ListSequence<T> *sourceList = static_cast<const ListSequence<T> *>(&list);
+        this->elements = new LinkedList<T>(*sourceList->elements);
     }
 
     T GetFirst()
@@ -44,7 +50,7 @@ public:
     Sequence<T> *GetSubSequence(int startIndex, int endIndex)
     {
         LinkedList<T> *SubList = this->elements->GetSubList(startIndex, endIndex);
-        MutableListSequence<T> *SubSequence = new MutableListSequence<T>;
+        ListSequence<T> *SubSequence = new ListSequence<T>;
         SubSequence->elements = SubList;
         return SubSequence;
     }
@@ -74,95 +80,9 @@ public:
 
     Sequence<T> *Concat(Sequence<T> *list)
     {
-        MutableListSequence<T> *concatList = new MutableListSequence<T>;
-        MutableListSequence<T> *tmp = static_cast<MutableListSequence<T> *>(list);
+        ListSequence<T> *concatList = new ListSequence<T>;
+        ListSequence<T> *tmp = static_cast<ListSequence<T> *>(list);
         concatList->elements = this->elements->Concat(tmp->elements);
-        return concatList;
-    }
-};
-
-template <class T>
-class ImmutableListSequence : public Sequence<T>
-{
-private:
-    LinkedList<T> *elements;
-
-public:
-    ImmutableListSequence()
-    {
-        this->elements = new LinkedList<T>();
-    }
-
-    ImmutableListSequence(T *elements, int size)
-    {
-        this->elements = new LinkedList<T>(elements, size);
-    }
-
-    ImmutableListSequence(const ImmutableListSequence<T> &list)
-    {
-        this->elements = new LinkedList<T>(*list.elements);
-    }
-
-    T GetFirst()
-    {
-        return this->elements->GetFirst();
-    }
-
-    T GetLast()
-    {
-        return this->elements->GetLast();
-    }
-
-    T Get(int index)
-    {
-        return this->elements->Get(index);
-    }
-
-    Sequence<T> *GetSubSequence(int startIndex, int endIndex)
-    {
-        LinkedList<T> *SubList = this->elements->GetSubList(startIndex, endIndex);
-        ImmutableListSequence<T> *SubSequence = new ImmutableListSequence<T>;
-        SubSequence->elements = SubList;
-        return SubSequence;
-    }
-
-    int GetLength()
-    {
-        return this->elements->GetLength();
-    }
-
-    ImmutableListSequence<T> *Copy()
-    {
-        return new ImmutableListSequence<T>(*this);
-    }
-
-    Sequence<T> *Append(T element)
-    {
-        ImmutableListSequence<T> *copy = Copy();
-        copy->elements->Append(element);
-        return copy;
-    }
-
-    Sequence<T> *Prepend(T element)
-    {
-        ImmutableListSequence<T> *copy = Copy();
-        copy->elements->Prepend(element);
-        return copy;
-    }
-
-    Sequence<T> *InsertAt(T element, int index)
-    {
-        ImmutableListSequence<T> *copy = Copy();
-        copy->elements->InsertAt(element, index);
-        return copy;
-    }
-
-    Sequence<T> *Concat(Sequence<T> *list)
-    {
-        ImmutableListSequence<T> *copy = Copy();
-        ImmutableListSequence<T> *concatList = new ImmutableListSequence<T>;
-        ImmutableListSequence<T> *tmp = static_cast<ImmutableListSequence<T> *>(list);
-        concatList->elements = copy->elements->Concat(tmp->elements);
         return concatList;
     }
 };

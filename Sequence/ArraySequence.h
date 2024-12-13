@@ -85,11 +85,6 @@ public:
 
     Sequence<T> *InsertAt(T element, int index)
     {
-        this->elements->Resize(this->elements->GetSize() + 1);
-        for (int i = this->elements->GetSize(); i > index; --i)
-        {
-            this->elements->Set(i, this->Get(i - 1));
-        }
         this->elements->Set(index, element);
         return this;
     }

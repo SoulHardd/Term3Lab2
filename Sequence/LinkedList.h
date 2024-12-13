@@ -23,12 +23,9 @@ private:
 
 public:
     LinkedList();
+    LinkedList(int size);
     LinkedList(T *elements, int size);
-    LinkedList(const LinkedList<T> &list)
-    {
-        size = list.size;
-        head = list.head;
-    }
+    LinkedList(const LinkedList<T> &list);
 
     int GetSize() { return size; }
     T Get(int index);
@@ -49,6 +46,35 @@ LinkedList<T>::LinkedList()
 {
     size = 0;
     head = nullptr;
+}
+
+template <class T>
+LinkedList<T>::LinkedList(int size)
+{
+    this->size = size;
+    head = nullptr;
+}
+
+template <class T>
+LinkedList<T>::LinkedList(const LinkedList<T> &list)
+{
+    size = list.size;
+    if (list.head == nullptr)
+    {
+        head = nullptr;
+        return;
+    }
+
+    head = new Node(list.head->data);
+    Node *currentNew = head;
+    Node *currentOld = list.head->next;
+
+    while (currentOld != nullptr)
+    {
+        currentNew->next = new Node(currentOld->data);
+        currentNew = currentNew->next;
+        currentOld = currentOld->next;
+    }
 }
 
 template <class T>
@@ -88,17 +114,16 @@ void LinkedList<T>::InsertAt(T data, int index)
     {
         throw std::out_of_range("index is out of range");
     }
-    Node *new_element = new Node(data);
+
     Node *current = this->head;
     int counter = 0;
+
     while (current != nullptr)
     {
-        if (counter == index - 1)
+        if (counter == index)
         {
-            Node *tmp = current->next;
-            current->next = new_element;
-            new_element->next = tmp->next;
-            break;
+            current->data = data;
+            return;
         }
         current = current->next;
         counter++;

@@ -4,10 +4,10 @@
 #include "Isort.h"
 
 template <typename T>
-class ShellSorter : public ISort<T>
+class ShellSort : public ISort<T>
 {
 public:
-    void Sort(Sequence<T> *seq) override
+    Sequence<T> *Sort(Sequence<T> *seq) override
     {
         int n = seq->GetLength();
 
@@ -25,6 +25,8 @@ public:
                 seq->InsertAt(temp, j);
             }
         }
+
+        return seq;
     }
 };
 
