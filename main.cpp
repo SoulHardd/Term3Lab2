@@ -70,7 +70,7 @@ void sortObjectMenu()
     std::cout << "Enter the number of elements: ";
     std::cin >> size;
 
-    int *a = new int[size]; // Create dynamic array
+    int *a = new int[size];
 
     std::cout << "Enter the elements:" << std::endl;
     for (int i = 0; i < size; ++i)
@@ -99,6 +99,8 @@ void sortObjectMenu()
     std::cout << "2) Merge Sort" << std::endl;
     std::cout << "3) Quick Sort" << std::endl;
     std::cout << "4) Shell Sort" << std::endl;
+    std::cout << "5) Bubble Sort" << std::endl;
+    std::cout << "6) Insertion Sort" << std::endl;
     std::cout << "0) Back to Sort Object Menu" << std::endl;
 
     std::cout << "Enter your choice: ";
@@ -120,24 +122,29 @@ void sortObjectMenu()
     case 4:
         sorter = new ShellSort<int>();
         break;
+    case 5:
+        sorter = new BubbleSort<int>();
+        break;
+    case 6:
+        sorter = new InsertionSort<int>();
+        break;
     case 0:
-        delete[] a; // Clean up allocated memory
+        delete[] a;
         return;
     default:
         std::cout << "Invalid choice. Returning to Sort Object Menu." << std::endl;
-        delete[] a; // Clean up allocated memory
+        delete[] a;
         return;
     }
 
     sorter->Sort(sequence);
-    std::cout << "Sorted array:" << std::endl;
+    std::cout << "Sorted array: ";
     for (int i = 0; i < sequence->GetLength(); ++i)
     {
         std::cout << sequence->Get(i) << " ";
     }
     std::cout << std::endl;
 
-    // Clean up
     delete[] a;
     delete sequence;
     delete sorter;

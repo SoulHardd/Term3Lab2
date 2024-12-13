@@ -2,6 +2,7 @@
 #define HEAP_SORT_H
 
 #include "Isort.h"
+#include "Swap.h"
 
 template <typename T>
 class HeapSort : public ISort<T>
@@ -47,13 +48,6 @@ private:
 
             heapify(seq, n, largest);
         }
-    }
-
-    void swap(Sequence<T> *seq, int i, int j)
-    {
-        T temp = seq->Get(i);
-        seq->InsertAt(seq->Get(j), i);
-        seq->InsertAt(temp, j);
     }
 };
 

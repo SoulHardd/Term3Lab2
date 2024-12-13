@@ -2,6 +2,7 @@
 #define QUICK_SORT_H
 
 #include "Isort.h"
+#include "Swap.h"
 
 template <class T>
 class QuickSort : public ISort<T>
@@ -21,16 +22,6 @@ private:
             int pi = partition(seq, low, high);
             quickSort(seq, low, pi - 1);
             quickSort(seq, pi + 1, high);
-        }
-    }
-
-    void swap(Sequence<T> *seq, int i, int j)
-    {
-        if (i != j)
-        {
-            T temp = seq->Get(i);
-            seq->InsertAt(seq->Get(j), i);
-            seq->InsertAt(temp, j);
         }
     }
 
