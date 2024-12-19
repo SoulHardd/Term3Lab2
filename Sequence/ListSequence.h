@@ -42,7 +42,7 @@ public:
         return this->elements->GetLast();
     }
 
-    T Get(int index)
+    T &Get(int index)
     {
         return this->elements->Get(index);
     }

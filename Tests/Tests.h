@@ -11,8 +11,6 @@
 #include "../Sort/MergeSort.h"
 #include "../Sort/QuickSort.h"
 #include "../Sort/ShellSort.h"
-#include "../Sort/BubbleSort.h"
-#include "../Sort/InsertionSort.h"
 
 void runSortTest(ISort<int> *sorter, Sequence<int> *sequence, const std::string &sortName, int size)
 {
@@ -36,15 +34,11 @@ void loadTests(int SIZE)
 
     Sequence<int> *arraySequence = new ArraySequence<int>(a, SIZE);
 
-    ISort<int> *bubbleSort = new BubbleSort<int>();
-    ISort<int> *insertionSort = new InsertionSort<int>();
     ISort<int> *heapSort = new HeapSort<int>();
     ISort<int> *mergeSort = new MergeSort<int>();
     ISort<int> *quickSort = new QuickSort<int>();
     ISort<int> *shellSort = new ShellSort<int>();
 
-    // runSortTest(bubbleSort, new ArraySequence<int>(*arraySequence), "BubbleSort", SIZE);
-    // runSortTest(insertionSort, new ArraySequence<int>(*arraySequence), "InsertionSort", SIZE);
     runSortTest(heapSort, new ArraySequence<int>(*arraySequence), "HeapSort", SIZE);
     runSortTest(mergeSort, new ArraySequence<int>(*arraySequence), "MergeSort", SIZE);
     runSortTest(quickSort, new ArraySequence<int>(*arraySequence), "QuickSort", SIZE);

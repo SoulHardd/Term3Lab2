@@ -17,7 +17,7 @@ public:
     DynamicArray(const DynamicArray<T> &dynamicArray);
 
     int GetSize();
-    T Get(int index);
+    T &Get(int index);
     DynamicArray<T> *GetSubArray(int startIndex, int endIndex);
 
     void Set(int index, T value);
@@ -74,7 +74,7 @@ int DynamicArray<T>::GetSize()
 };
 
 template <class T>
-T DynamicArray<T>::Get(int index)
+T &DynamicArray<T>::Get(int index)
 {
     if (elements == nullptr)
         throw std::out_of_range("array is empty");

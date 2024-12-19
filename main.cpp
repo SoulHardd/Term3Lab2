@@ -90,7 +90,7 @@ void sortObjectMenu()
         break;
     default:
         std::cout << "Invalid choice. Returning to Main Menu." << std::endl;
-        delete[] a; // Clean up allocated memory
+        delete[] a;
         return;
     }
 
@@ -99,8 +99,6 @@ void sortObjectMenu()
     std::cout << "2) Merge Sort" << std::endl;
     std::cout << "3) Quick Sort" << std::endl;
     std::cout << "4) Shell Sort" << std::endl;
-    std::cout << "5) Bubble Sort" << std::endl;
-    std::cout << "6) Insertion Sort" << std::endl;
     std::cout << "0) Back to Sort Object Menu" << std::endl;
 
     std::cout << "Enter your choice: ";
@@ -122,12 +120,7 @@ void sortObjectMenu()
     case 4:
         sorter = new ShellSort<int>();
         break;
-    case 5:
-        sorter = new BubbleSort<int>();
-        break;
-    case 6:
-        sorter = new InsertionSort<int>();
-        break;
+
     case 0:
         delete[] a;
         return;

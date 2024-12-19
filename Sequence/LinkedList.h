@@ -26,9 +26,10 @@ public:
     LinkedList(int size);
     LinkedList(T *elements, int size);
     LinkedList(const LinkedList<T> &list);
+    ~LinkedList();
 
     int GetSize() { return size; }
-    T Get(int index);
+    T &Get(int index);
     T GetFirst();
     T GetLast();
     LinkedList<T> *GetSubList(int startIndex, int endIndex);
@@ -40,6 +41,18 @@ public:
 
     LinkedList<T> *Concat(LinkedList<T> *list);
 };
+
+template <class T>
+LinkedList<T>::~LinkedList()
+{
+    Node *current = head;
+    while (current != nullptr)
+    {
+        Node *next = current->next;
+        delete current;
+        current = next;
+    }
+}
 
 template <class T>
 LinkedList<T>::LinkedList()
@@ -145,7 +158,7 @@ LinkedList<T>::LinkedList(T *elements, int size)
 }
 
 template <class T>
-T LinkedList<T>::Get(int index)
+T &LinkedList<T>::Get(int index)
 {
     if (index < 0 || index >= size)
     {
@@ -162,7 +175,7 @@ T LinkedList<T>::Get(int index)
         current = current->next;
         counter++;
     }
-    return 0;
+    return current->data;
 }
 
 template <class T>

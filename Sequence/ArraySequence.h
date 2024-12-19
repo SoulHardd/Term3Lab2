@@ -37,7 +37,7 @@ public:
         this->elements = new DynamicArray<T>(*((static_cast<const ArraySequence<T> *>(&array))->elements));
     }
 
-    T Get(int index)
+    T &Get(int index)
     {
         return this->elements->Get(index);
     }
